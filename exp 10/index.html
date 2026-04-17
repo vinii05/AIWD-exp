@@ -1,0 +1,22 @@
+<!-- index.html (Registration) -->
+<form action="/register" method="POST" id="regForm">
+    Reg No: <input type="text" name="regno" required><br>
+    Name: <input type="text" name="name" required><br>
+    Events (Max 3):<br>
+    <input type="checkbox" name="events" value="Coding Challenge"> Coding Challenge<br>
+    <input type="checkbox" name="events" value="Debugging Contest"> Debugging Contest<br>
+    <input type="checkbox" name="events" value="Web Design"> Web Design<br>
+    <input type="checkbox" name="events" value="Quiz"> Quiz<br>
+    <button type="submit">Register</button>
+</form>
+
+<script>
+    const form = document.getElementById('regForm');
+    form.onsubmit = () => {
+        const checked = document.querySelectorAll('input[type="checkbox"]:checked');
+        if (checked.length > 3) {
+            alert("Select max 3 events!");
+            return false;
+        }
+    };
+</script>

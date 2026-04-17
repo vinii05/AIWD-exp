@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Currency Converter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f4f8;
+            margin:0;
+            padding:20px;
+        }
+        .wrapper{
+            max-width:480px;
+            margin:40px auto;
+            background:#ffffff;
+            border-radius:10px;
+            padding:20px 24px;
+            box-shadow:0 4px 15px rgba(0,0,0,0.15);
+            border:1px solid #ddd;
+        }
+        h1{
+            text-align:center;
+            margin-top:0;
+            color:#0056d6;
+        }
+        label{
+            display:block;
+            margin-bottom:4px;
+            font-weight:bold;
+        }
+        .field-row{
+            margin-bottom:12px;
+        }
+        input[type="number"],
+        select{
+            width:100%;
+            padding:8px;
+            border-radius:4px;
+            border:1px solid #999;
+        }
+        button{
+            padding:8px 18px;
+            border-radius:20px;
+            border:none;
+            cursor:pointer;
+            background:#0056d6;
+            color:#fff;
+            font-weight:bold;
+            transition:transform .15s, box-shadow .15s;
+        }
+        button:hover{
+            transform:translateY(-1px);
+            box-shadow:0 4px 8px rgba(0,0,0,0.3);
+        }
+        .result-box{
+            margin-top:16px;
+            padding:12px;
+            border-radius:25px;
+            text-align:center;
+            font-size:1.2rem;
+            background:#0044cc;
+            color:#fff;
+        }
+        .rate-info{
+            font-size:0.8rem;
+            color:#666;
+            margin-top:4px;
+        }
+    </style>
+</head>
+<body onload="initCurrencyPage()"><!-- onload -->
+
+<div class="wrapper">
+    <h1>Currency Converter</h1>
+
+    <div class="field-row">
+        <label for="amountInput" class="field-label">Amount</label>
+        <input type="number" id="amountInput" min="0" step="0.01"
+               value="11" onkeyup="convertCurrency()"><!-- onkeyup -->
+    </div>
+
+    <div class="field-row">
+        <label for="fromCurrency" class="field-label">From</label>
+        <select id="fromCurrency" onchange="convertCurrency()"><!-- onchange -->
+            <option value="USD" selected>USD</option>
+            <option value="EUR">EUR</option>
+            <option value="INR">INR</option>
+            <option value="JPY">JPY</option>
+        </select>
+    </div>
+
+    <div class="field-row">
+        <label for="toCurrency" class="field-label">To</label>
+        <select id="toCurrency" onchange="convertCurrency()">
+            <option value="INR" selected>INR</option>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="JPY">JPY</option>
+        </select>
+    </div>
+
+    <button type="button" onclick="convertCurrency()">Convert</button><!-- onclick -->
+
+    <div id="currencyResult" class="result-box">
+        Amount = 0
+    </div>
+    <p class="rate-info info-text">
+        Rates are static sample values for demo only.
+    </p>
+</div>
+
+<script>
+    // static demo rates vs USD
+    const rates = { USD:1, EUR:0.9, INR:80, JPY:150 };
+
+    function initCurrencyPage(){
+        // getElementById
+        const amt = document.getElementById('amountInput');
+        amt.focus();
+
+        // getElementsByClassName: color all labels
+        const labels = document.getElementsByClassName('field-label');
+        for(let i=0;i<labels.length;i++){
+            labels[i].style.color = '#222';
+        }
+
+        // querySelector: change first info text
+        const info = document.querySelector('.info-text');
+        info.textContent = 'Using fixed sample exchange rates (no API).';
+
+        convertCurrency(); // show initial result
+    }
+
+    function convertCurrency(){
+        const amount = parseFloat(document.getElementById('amountInput').value) || 0;
+        const from = document.getElementById('fromCurrency').value;
+        const to   = document.getElementById('toCurrency').value;
+
+        const resultBox = document.getElementById('currencyResult');
+
+        // querySelectorAll: highlight all select boxes when converting
+        const selects = document.querySelectorAll('select');
+        selects.forEach(s => s.style.borderColor = '#0056d6');
+
+        // calculation
+        const inUsd = amount / rates[from];
+        const converted = inUsd * rates[to];
+
+        resultBox.textContent = `Amount = ${converted.toFixed(2)} ${to}`;
+    }
+</script>
+</body>
+</html>

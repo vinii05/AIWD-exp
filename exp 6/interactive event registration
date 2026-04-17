@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive Event Details</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f4f4;
+            padding:20px;
+        }
+        .event{
+            background:#fff;
+            border:1px solid #ccc;
+            padding:15px;
+            margin-bottom:15px;
+            border-radius:6px;
+            transition:background-color 0.3s;
+        }
+        .details{
+            display:none;
+            margin-top:10px;
+            padding:10px;
+            border-top:1px solid #ddd;
+        }
+        button{
+            padding:6px 12px;
+            border:none;
+            border-radius:4px;
+            cursor:pointer;
+        }
+        .show-btn{
+            background:#007bff;
+            color:#fff;
+        }
+        .register-btn{
+            background:#28a745;
+            color:#fff;
+        }
+        .highlight-title{
+            color:#d9534f;
+            text-decoration:underline;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Upcoming Events</h2>
+
+    <div class="event">
+        <h3>Music Fiesta</h3>
+        <p>Date: 25 March 2026</p>
+        <button class="show-btn">Show Details</button>
+
+        <div class="details">
+            <p>Enjoy a night of live bands and DJ performances.</p>
+            <button class="register-btn">Register</button>
+        </div>
+    </div>
+
+    <div class="event">
+        <h3>Tech Conference</h3>
+        <p>Date: 02 April 2026</p>
+        <button class="show-btn">Show Details</button>
+
+        <div class="details">
+            <p>Talks and workshops on AI, web and cloud computing.</p>
+            <button class="register-btn">Register</button>
+        </div>
+    </div>
+
+    <div class="event">
+        <h3>Art Expo</h3>
+        <p>Date: 10 April 2026</p>
+        <button class="show-btn">Show Details</button>
+
+        <div class="details">
+            <p>Exhibition of paintings, sculptures and digital art.</p>
+            <button class="register-btn">Register</button>
+        </div>
+    </div>
+
+    <script>
+    $(document).ready(function () {
+
+        // Show / Hide details with slideToggle + button text toggle
+        $(".show-btn").click(function () {
+            var $btn = $(this);
+            var $eventDiv = $btn.closest(".event");      // traversing to event div
+            var $details = $eventDiv.find(".details");
+            var $title = $eventDiv.find("h3");           // corresponding h3
+
+            // Slide toggle details
+            $details.slideToggle();
+
+            // Toggle button text
+            if ($btn.text() === "Show Details") {
+                $btn.text("Hide Details");
+            } else {
+                $btn.text("Show Details");
+            }
+
+            // Reset background for all, then highlight selected event
+            $(".event").css("background-color", "#fff");
+            $eventDiv.css("background-color", "#e3f2fd");
+
+            // Remove highlight class from all titles, then add to selected
+            $("h3").removeClass("highlight-title");
+            $title.addClass("highlight-title");
+
+            // Retrieve Event Title and show alert
+            var eventTitle = $title.text();
+            alert("Selected Event: " + eventTitle);
+
+        });
+
+        // Register button -> go to registration page with event title passed
+        $(".register-btn").click(function () {
+            var eventTitle = $(this).closest(".event").find("h3").text();
+            // encode and pass as query string
+            var url = "registration.html?event=" + encodeURIComponent(eventTitle);
+            window.location.href = url;
+        });
+
+    });
+    </script>
+</body>
+</html>

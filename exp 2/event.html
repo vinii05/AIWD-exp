@@ -2,86 +2,76 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Hunger Games: Reaping Day Registration</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Experiment 2: external CSS -->
+    <title>Hunger Games: Reaping Day Registration</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<header class="site-header">
-    <h1>Hunger Games: Reaping Day Registration</h1>
-    <img src="banner.jpg"
-         alt="Mockingjay emblem and Capitol skyline for the Hunger Games Reaping Day"
-         class="banner-image">
-    <p class="header-quote">“May the odds be ever in your favor.”</p>
+<header>
+    <h1>⚔️ Hunger Games ⚔️</h1>
+    <h1>Reaping Day Registration</h1>
+    <p>"May the odds be ever in your favor."</p>
 </header>
 
-<main class="page-content">
-    <section class="card media-section">
+<main>
+    <div class="banner">
+        <img src="banner.jpg" alt="Mockingjay emblem and Capitol skyline">
+    </div>
+
+    <section>
         <h2>Capitol Broadcast</h2>
+        
+        <h3>Official Reaping Announcement</h3>
+        <video controls>
+            <source src="promo.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
 
-        <div class="media-flex">
-            <div class="media-item">
-                <h3>Official Reaping Announcement</h3>
-                <video controls>
-                    <source src="promo.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-
-            <div class="media-item">
-                <h3>Capitol Fanfare</h3>
-                <audio controls>
-                    <source src="intro.mp3" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-                <p class="hint-text">
-                    Listen to the Capitol anthem as you complete your registration.
-                </p>
-            </div>
-        </div>
+        <h3>Capitol Fanfare</h3>
+        <audio controls>
+            <source src="intro.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <small>Listen to the Capitol anthem as you complete your registration.</small>
     </section>
 
-    <section class="card form-section">
+    <section>
         <h2>Tribute Registration Form</h2>
-        <p class="hint-text">
-            All eligible citizens from the districts must complete the form below for the annual Reaping.
-        </p>
+        <small>All eligible citizens from the districts must complete the form below for the annual Reaping.</small>
 
-        <form action="#" method="post" class="tribute-form">
+        <form action="#" method="post">
             <div class="form-group">
                 <label for="name">Full Name *</label>
-                <input type="text" id="name" name="name" required>
+                <input type="text" id="name" name="name" placeholder="Enter your full name" required>
             </div>
 
             <div class="form-group">
                 <label for="email">Email ID *</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
             </div>
 
             <div class="form-group">
-                <label for="eventDate">Date of Birth *</label>
-                <input type="date" id="eventDate" name="eventDate" required>
+                <label for="dob">Date of Birth *</label>
+                <input type="date" id="dob" name="dob" required>
             </div>
 
             <div class="form-group">
-                <label for="districtSelect">District of Origin *</label>
-                <select id="districtSelect" name="districtSelect" required>
+                <label for="district">District of Origin *</label>
+                <select id="district" name="district" required>
                     <option value="">-- Select District --</option>
-                    <option value="District 1">District 1 – Luxury</option>
-                    <option value="District 2">District 2 – Masonry</option>
-                    <option value="District 3">District 3 – Technology</option>
-                    <option value="District 4">District 4 – Fishing</option>
-                    <option value="District 5">District 5 – Power</option>
-                    <option value="District 6">District 6 – Transportation</option>
-                    <option value="District 7">District 7 – Lumber</option>
-                    <option value="District 8">District 8 – Textiles</option>
-                    <option value="District 9">District 9 – Grain</option>
-                    <option value="District 10">District 10 – Livestock</option>
-                    <option value="District 11">District 11 – Agriculture</option>
-                    <option value="District 12">District 12 – Mining</option>
+                    <option value="1">District 1 – Luxury Items</option>
+                    <option value="2">District 2 – Masonry</option>
+                    <option value="3">District 3 – Technology</option>
+                    <option value="4">District 4 – Fishing</option>
+                    <option value="5">District 5 – Power</option>
+                    <option value="6">District 6 – Transportation</option>
+                    <option value="7">District 7 – Lumber</option>
+                    <option value="8">District 8 – Textiles</option>
+                    <option value="9">District 9 – Grain</option>
+                    <option value="10">District 10 – Livestock</option>
+                    <option value="11">District 11 – Agriculture</option>
+                    <option value="12">District 12 – Mining</option>
                 </select>
             </div>
 
@@ -98,26 +88,22 @@
                     </label>
                     <label>
                         <input type="radio" name="entryType" value="career">
-                        Career Tribute (Capitol Endorsed)
+                        Career Tribute
                     </label>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="comments">Skills &amp; Survival Notes</label>
-                <textarea id="comments" name="comments" rows="4"
-                          placeholder="Describe your skills in archery, combat, strategy, foraging, or alliances..."></textarea>
+                <label for="skills">Skills & Survival Notes</label>
+                <textarea id="skills" name="skills" placeholder="Describe your skills in archery, combat, strategy, foraging, or alliances..."></textarea>
             </div>
-
             <div class="form-group">
-                <label for="attachment">Upload Identification (image/PDF)</label>
-                <input type="file" id="attachment" name="attachment" accept=".jpg,.jpeg,.png,.pdf">
-                <p class="hint-text">Attach your ID for verification</p>
+                <label for="id">Upload Identification (image/PDF)</label>
+                <input type="file" id="id" name="id" accept=".jpg,.jpeg,.png,.pdf">
+                <small>Attach your ID for verification</small>
             </div>
 
-            <div class="form-actions">
-                <input type="submit" value="Submit Tribute Registration">
-            </div>
+            <input type="submit" value="Submit Tribute Registration">
         </form>
     </section>
 </main>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BMI Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg,#0d1b2a,#1b263b);
+            margin:0;
+            padding:20px;
+            color:#f8f9fa;
+        }
+        .wrapper{
+            max-width:480px;
+            margin:40px auto;
+            background:#ffffff10;
+            border-radius:10px;
+            padding:20px 24px;
+            box-shadow:0 4px 15px rgba(0,0,0,0.4);
+            border:1px solid #ffffff30;
+        }
+        h1{
+            text-align:center;
+            margin-top:0;
+            color:#ffd166;
+        }
+        label{
+            display:block;
+            margin-bottom:4px;
+            font-weight:bold;
+        }
+        .field-row{
+            margin-bottom:12px;
+        }
+        input[type="number"]{
+            width:100%;
+            padding:8px;
+            border-radius:4px;
+            border:1px solid #ccc;
+        }
+        button{
+            padding:8px 18px;
+            border-radius:20px;
+            border:none;
+            cursor:pointer;
+            background:#ffd166;
+            color:#1b263b;
+            font-weight:bold;
+            transition:transform .15s, box-shadow .15s;
+        }
+        button:hover{
+            transform:translateY(-1px);
+            box-shadow:0 4px 8px rgba(0,0,0,0.6);
+        }
+        .result-box{
+            margin-top:12px;
+            padding:10px;
+            border-radius:8px;
+            text-align:center;
+            font-size:1.1rem;
+            background:#0b525b;
+        }
+        .badge{
+            display:inline-block;
+            padding:3px 8px;
+            border-radius:999px;
+            margin-left:5px;
+            font-size:.8rem;
+            background:#415a77;
+        }
+        .bmi-under { background:#118ab2; }
+        .bmi-normal{ background:#06d6a0; }
+        .bmi-over  { background:#ffb703; }
+        .bmi-obese { background:#ef476f; }
+
+        .radio-pill{
+            border-radius:999px;
+            padding:6px 10px;
+            transition:background .2s, box-shadow .2s;
+            display:inline-block;
+            margin-right:6px;
+        }
+        .radio-pill:hover{
+            background:rgba(255,209,102,0.1);
+            box-shadow:0 0 6px rgba(255,209,102,0.4);
+        }
+    </style>
+</head>
+<body onload="initBmiPage()"><!-- onload -->
+
+<div class="wrapper">
+    <h1 id="bmiHeading">BMI Calculator</h1>
+
+    <form id="bmiForm"><!-- onsubmit -->
+        <div class="field-row">
+            <label for="weightInput" class="field-label">Weight (kg)</label>
+            <input type="number" id="weightInput" min="1" step="0.1"
+                   placeholder="Enter weight" onkeyup="handleBmiKeyup()"><!-- onkeyup -->
+        </div>
+
+        <div class="field-row">
+            <label for="heightInput" class="field-label">Height (cm)</label>
+            <input type="number" id="heightInput" min="30" step="0.1"
+                   placeholder="Enter height" onkeyup="handleBmiKeyup()">
+        </div>
+
+        <div class="field-row">
+            <span class="field-label">Activity</span>
+            <div class="radio-pill">
+                <input type="radio" name="activity" id="actLow" value="low" checked>
+                <label for="actLow">Low</label>
+            </div>
+            <div class="radio-pill">
+                <input type="radio" name="activity" id="actHigh" value="high">
+                <label for="actHigh">High</label>
+            </div>
+        </div>
+
+        <button type="submit" onclick="calculateBMI(event)">Calculate BMI</button><!-- onclick -->
+    </form>
+
+    <div id="bmiResult" class="result-box">
+        Enter your weight and height to calculate BMI.
+    </div>
+</div>
+
+<script>
+    function initBmiPage(){
+        // getElementById
+        const w = document.getElementById('weightInput');
+        w.value = 80;
+        const h = document.getElementById('heightInput');
+        h.value = 170;
+
+        // getElementsByClassName
+        const labels = document.getElementsByClassName('field-label');
+        for(let i=0;i<labels.length;i++){
+            labels[i].style.color = '#f1faee';
+        }
+    }
+
+    function handleBmiKeyup(){
+        // getElementsByTagName + querySelector
+        const headings = document.getElementsByTagName('h1');
+        if(headings.length>0){
+            const head = headings[0];
+            head.querySelector('.badge')?.remove();
+            const badge = document.createElement('span');
+            badge.className = 'badge';
+            badge.textContent = 'typing…';
+            head.appendChild(badge);
+        }
+    }
+
+    function calculateBMI(e){
+        e.preventDefault(); // onsubmit without reload
+        const w = parseFloat(document.getElementById('weightInput').value);
+        const hCm = parseFloat(document.getElementById('heightInput').value);
+        const resultBox = document.getElementById('bmiResult');
+
+        if(!w || !hCm){
+            resultBox.textContent = 'Please fill both fields.';
+            resultBox.className = 'result-box';
+            return;
+        }
+        const h = hCm/100;
+        const bmi = w/(h*h);
+
+        let cat='', cls='result-box ';
+        if(bmi < 18){ cat='Underweight'; cls+='bmi-under'; }
+        else if(bmi<=25){ cat='Normal'; cls+='bmi-normal'; }
+        else if(bmi<=30){ cat='Overweight'; cls+='bmi-over'; }
+        else { cat='Obese'; cls+='bmi-obese'; }
+
+        resultBox.className = cls;
+        resultBox.textContent = `BMI = ${bmi.toFixed(1)} (${cat})`;
+    }
+</script>
+</body>
+</html>
